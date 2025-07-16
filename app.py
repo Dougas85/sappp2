@@ -3,7 +3,7 @@ import csv
 import datetime
 import random
 import os
-import psycopg2
+import psycopg
 from dotenv import load_dotenv
 from zoneinfo import ZoneInfo
 import chardet
