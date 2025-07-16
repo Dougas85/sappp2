@@ -1,0 +1,340 @@
+body {
+    font-family: 'Roboto', sans-serif;
+    background-color: #f0f0f0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+}
+
+header, footer {
+    background-color: #0056b3;
+    color: white;
+    padding: 10px 0;
+    width: 100%;
+    text-align: center;
+}
+
+.container {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px;
+    text-align: center;
+    min-width: 300px;
+    max-width: 1200px;
+    height: auto; /* Permite que a altura seja dinâmica */
+    overflow: auto;
+}
+.scrolling-wrapper {
+    width: 100%;
+    overflow: hidden;
+    position: relative;
+    height: 40px;
+}
+
+.scrolling-text {
+    white-space: nowrap;
+    display: inline-block;
+    font-size: 24px;
+    font-weight: bold;
+    color: white;
+    position: absolute;
+    animation: scroll-left-pause 10s linear infinite;
+}
+h1 {
+    color: #333333;
+}
+
+button {
+    background-color: #0056b3;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    margin: 10px;
+    width: 200px;
+    transition: transform 0.3s, background-color 0.3s;
+}
+
+button:hover {
+    background-color: #ffcc00;
+    transform: scale(1.1);
+}
+
+#searchInput {
+    background-color: #3895f3; /* Azul escuro */
+    color: white;              /* Texto branco */
+    padding: 10px 20px;
+    width: 200px;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    margin: 10px;
+    transition: transform 0.3s, box-shadow 0.3s, background-color 0.3s;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+    outline: none;
+}
+
+#searchInput::placeholder {
+    color: #cccccc; /* Placeholder mais claro */
+}
+
+#searchInput:focus {
+    background-color: #ffcc00;  /* Amarelo no foco */
+    color: #003366;             /* Texto azul escuro */
+    box-shadow: 0 0 8px rgba(255, 204, 0, 0.7);
+    transform: scale(1.02);
+    width: 200px;
+}
+
+
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+th, td {
+    height: 50px;
+    max-width: 300px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: normal;
+    text-align: center;
+}
+
+tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
+tr:hover {
+    background-color: #ddd;
+}
+
+#calendar {
+    display: grid;
+    grid-template-columns: repeat(23, 1fr); /* 67 itens divididos em 3 linhas ≈ 23 por linha */
+    gap: 5px;
+    width: 100%;
+    max-width: 800px;
+    margin: auto;
+}
+
+#calendar div {
+    width: 30px;
+    height: 30px;
+    background-color: rgb(159, 157, 157);
+    color: white;
+    text-align: center;
+    line-height: 30px;
+    font-size: 14px;
+    border-radius: 50%;
+    cursor: pointer;
+    color: #797878
+}
+
+#calendar:hover {
+    transform: scale(1);
+}
+
+#calendar div:hover {
+    transform: scale(1.2);
+    background-color: #add8e6; /* Azul claro */
+    transform: translateY(0) scale(1.3);
+}
+
+
+
+#calendar div.viewed {
+    background-color: green;
+    font-weight: bold;
+}
+
+.bold-number {
+    font-weight: bold;
+}
+
+.bold-day {
+    font-weight: bold;
+    background-color: #4b4a4a !important;
+    color: darkblue; /* opcional */
+}
+
+
+/* Estilização do modal */
+dialog {
+    width: 80%;
+    padding: 20px;
+    border: 2px solid #333;
+    border-radius: 10px;
+    text-align: center;
+    background-color: white;
+}
+
+dialog::backdrop {
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+.tooltip-box {
+    position: absolute;
+    background-color: rgba(0, 0, 0, 0.8);
+    color: white;
+    padding: 8px;
+    border-radius: 5px;
+    font-size: 14px;
+    max-width: 200px;
+    word-wrap: break-word;
+    z-index: 1000;
+    box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.3);
+}
+
+.tooltip {
+    position: relative;
+    cursor: pointer;
+}
+
+.tooltip:hover::after {
+    content: attr(data-tooltip);
+    position: absolute;
+    background-color: rgba(0, 0, 0, 0.8);
+    color: white;
+    padding: 5px;
+    border-radius: 5px;
+    font-size: 12px;
+    max-width: 250px;
+    word-wrap: break-word;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    white-space: normal;
+    z-index: 1000;
+}
+
+.speech-pulse {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+#speechAnimation {
+    justify-content: center;
+    align-items: center;
+    font-weight: bold;
+    color: #0066ff;
+    font-size: 18px;
+    margin-bottom: 10px;
+    animation: pulse 1s infinite;
+}
+
+.btn-simulador {
+    background-color: #004080;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 6px;
+    text-decoration: none;
+    margin-top: 10px;
+    display: inline-block;
+    width: 200px;
+}
+
+
+@keyframes pulse {
+    0% {
+        transform: scale(1);
+        opacity: 1;
+    }
+    50% {
+        transform: scale(1.1);
+        opacity: 0.7;
+    }
+    100% {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+@keyframes scroll-left-pause {
+    0% {
+        left: 100%;
+    }
+    40% {
+        left: 50%;
+        transform: translateX(-50%)
+    }
+    60%{
+        left: 50%;
+        transform: translateX(-50%);
+    }
+    100% {
+        left: -100%;
+        transform: translateX(0%);
+    }
+}
+/* Ajustes para dispositivos móveis */
+@media (max-width: 768px) {
+    .container {
+        padding: 15px;  /* Reduzido o padding em telas menores */
+        width: 100%; /* Aumenta a largura da container para 100% */
+        max-width: 92%; /* Garante que ocupe toda a largura da tela */
+    }
+
+    button {
+        width: 90%; /* Botões ocupam toda a largura */
+    }
+
+    table {
+        font-size: 14px; /* Reduzido o tamanho da fonte da tabela */
+    }
+
+    #calendar {
+        grid-template-columns: repeat(6, 1fr); /* Ajusta para 6 itens por linha em telas menores */
+    }
+
+    #calendar div {
+        font-size: 12px;  /* Ajusta o tamanho da fonte para caber melhor em telas pequenas */
+        width: 25px;
+        height: 25px;
+    }
+
+    dialog {
+        width: 80%; /* Modal ocupa 80% da largura da tela */
+    }
+
+    /* Ajusta o tamanho da fonte no header e footer */
+    header h1, footer p {
+        font-size: 16px;
+    }
+}
+
+.styled-select {
+    background-color: #0056b3;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    margin: 10px;
+    width: 200px;
+    appearance: none; /* Remove estilo nativo */
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    transition: transform 0.3s, background-color 0.3s;
+    text-align: center;
+    text-align-last: center; /* Centraliza texto selecionado */
+}
+
+.styled-select:hover {
+    background-color: #ffcc00;
+    color: #003366;
+    transform: scale(1.1);
+}
+
+
