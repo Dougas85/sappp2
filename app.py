@@ -26,7 +26,7 @@ MATRICULAS_AUTORIZADAS = {
 }
 
 def get_db_connection():
-    return psycopg2.connect(DATABASE_URL)
+    return psycopg.connect(DATABASE_URL)
 
 def get_valid_csv_data(lista='SAPPP'):
     if lista.upper() == 'CHECKLIST':
