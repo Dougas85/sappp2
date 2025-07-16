@@ -6,7 +6,6 @@ import os
 import psycopg
 from dotenv import load_dotenv
 from zoneinfo import ZoneInfo
-import chardet
 
 # Carrega variáveis de ambiente
 load_dotenv(dotenv_path=".env.local")
@@ -33,24 +32,56 @@ def get_valid_csv_data(lista='SAPPP'):
         path = 'data/CHECKLIST.csv'
         encoding = 'utf-8'
         delimiter = ','
-    else:
+        
+        if not os.path.exists(path):
+            print(f"[ERRO] Arquivo {path} não encontrado.")
+            return []
+
+        with open(path, newline='', encoding=encoding) as csvfile:
+            reader = csv.reader(csvfile, delimiter=delimiter)
+            rows = list(reader)
+
+        valid_rows = []
+        for row in rows:
+            if row and row[0].strip().isdigit():
+                valid_rows.append([row[0].strip()] + row[1:])
+        return valid_rows
+
+    else:  # Para SAPPP - processar sublistas e numerar sequencialmente
         path = 'data/SAPPP_office.csv'
         encoding = 'windows-1252'
         delimiter = ';'
+        
+        if not os.path.exists(path):
+            print(f"[ERRO] Arquivo {path} não encontrado.")
+            return []
 
-    if not os.path.exists(path):
-        print(f"[ERRO] Arquivo {path} não encontrado.")
-        return []
+        valid_rows = []
+        numbering = 1
+        inside_lista = False
 
-    with open(path, newline='', encoding=encoding) as csvfile:
-        reader = csv.reader(csvfile, delimiter=delimiter)
-        rows = list(reader)
+        with open(path, newline='', encoding=encoding) as csvfile:
+            reader = csv.reader(csvfile, delimiter=delimiter)
 
-    valid_rows = []
-    for i, row in enumerate(rows):
-        if row and row[0].strip().isdigit():
-            valid_rows.append([row[0].strip()] + row[1:])
-    return valid_rows
+            for row in reader:
+                if not row:
+                    continue
+
+                # Detecta início da sublista
+                if row[0].startswith('Lista:'):
+                    inside_lista = True
+                    continue
+
+                if inside_lista:
+                    # Aceita apenas linhas cujo primeiro campo é dígito (item)
+                    if row[0].strip().isdigit():
+                        valid_rows.append([str(numbering)] + row[1:])
+                        numbering += 1
+                    else:
+                        # ignora cabeçalhos e linhas vazias dentro da sublista
+                        continue
+
+        return valid_rows
 
 def get_items_for_today(lista='SAPPP', rows=None):
     today = datetime.datetime.now(ZoneInfo("America/Sao_Paulo")).date()
@@ -185,7 +216,7 @@ def get_all_items():
             "descricao": item[1],
             "numero": item[0],
             "peso": int(item[2]) if item[2].isdigit() else 0,
-            "na": item[4]
+            "na": item[4] if len(item) > 4 else ''
         }
         for item in rows
     ])
