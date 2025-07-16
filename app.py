@@ -10,6 +10,10 @@ import chardet
 
 # Carrega variáveis de ambiente
 load_dotenv(dotenv_path=".env.local")
+
+# Definir a URL de conexão diretamente no código
+os.environ["DATABASE_URL"] = "postgresql://postgres.ncxrcevezeaxcmcjlgrl:lara1503@aws-0-sa-east-1.pooler.supabase.com:6543/postgres"
+
 DATABASE_URL = os.getenv("DATABASE_URL")
 
 app = Flask(__name__)
